@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404,redirect
 from .models import Category,Item
 #add this so login will be require to use certain view function
 from django.contrib.auth.decorators import login_required
-from .forms import newItemForm
+from .forms import newItemForm,editItemForm
 # Create your views here.
 
 def detail(request,pk):
@@ -25,3 +25,27 @@ def new(request):
     else:
         form = newItemForm()
     return render(request,'form.html',{'form':form,'title':'new Item'})
+
+@login_required
+def edit(request,pk):
+    item = get_object_or_404(Item,pk=pk,created_by = request.user)
+    if request.method == 'POST':
+        form = editItemForm(request.POST,request.FILES,instance=item)
+
+        if form.is_valid():
+            #since we are editing the form so form is already saved so no need to write extra code as we did
+            # for new method
+            item.save()
+            return redirect('item:detail',pk = item.id)
+    else:
+        # the reason we write instace is if we don't we will only see an empty form so we fill it with existing 
+        # or old form data
+        form = editItemForm(instance=item)
+    return render(request,'form.html',{'form':form,'title':'edit Item'})
+
+@login_required
+def delete(request,pk):
+    item = get_object_or_404(Item,pk=pk,created_by = request.user)
+    item.delete()
+
+    return redirect('dashboard:index')

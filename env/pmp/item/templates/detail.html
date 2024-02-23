@@ -24,7 +24,19 @@
         <li>Detail 4: Any other relevant information.</li>
       </ul>
       <div class="d-grid" style="align-items: center; align-self: center;">
+        {% comment %} write this code when you want to display Delete and Edit option based
+        on the user authentication, if it is seller display option to delete or edit it {% endcomment %}
+        {% if request.user == item.created_by %}
+        <div>
+
+          <p> this is your item<p>
+            <a class="nav-link active" aria-current="page" href="{% url 'item:delete' pk=item.pk %}">Delete Item</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'item:edit' pk=item.id %}">Edit Item</a>
+
+        </div>
+        {% else %}
         <button type="button" style="width: 50%; align-self:center;" class="btn btn-primary btn-block">Contact Seller</button>
+        {% endif %}
       </div>
     </div>
   </div>
