@@ -14,12 +14,17 @@
 <ul>
     {% for category in categories %}
     
-    <li>
+    <li {% if category.id == category_id %}{% endif %}>
         <a href="{% url "item:items" %}?query={{query}}&category={{category.id}}">{{category.name}}</a>
     </li>
     
     
     {% endfor %}
+    <ul>
+      <li>
+        <a href="{% url "item:items" %}">Clear Filter</a>
+      </li>
+    </ul>
 </ul>
 </div>
 <div class="container-fluid p-3 my-3 bg-dark text-white">

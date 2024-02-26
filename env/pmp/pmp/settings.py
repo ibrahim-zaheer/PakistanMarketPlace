@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pmpapp',
     'item',
-    'dashboard'
+    'dashboard',
+    'conversation',
 ]
 
 MIDDLEWARE = [
