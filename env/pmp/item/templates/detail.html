@@ -35,7 +35,9 @@
 
         </div>
         {% else %}
-        <button type="button" style="width: 50%; align-self:center;" class="btn btn-primary btn-block">Contact Seller</button>
+        <button type="button" style="width: 50%; align-self:center;" class="btn btn-primary btn-block">
+          <a href="{% url 'conversation:new' item.id %}"> Contact Seller</a>
+        </button>
         {% endif %}
       </div>
     </div>
